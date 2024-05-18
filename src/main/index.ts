@@ -2,17 +2,28 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import getFiles from './lib/getFiles'
+import launchRandomGame from './lib/launchRandomGame'
+import Store from 'electron-store'
+import { GameSystemConfiguration } from '../types/GameSystemConfiguration'
+import saveConfigs from './lib/saveConfigs'
+import loadConfigs from './lib/loadConfigs'
+
+type StoreType = {
+    configs: GameSystemConfiguration[],
+}
 
 function createWindow(): void {
     // Create the browser window.
     const mainWindow = new BrowserWindow({
-        width: 900,
+        width: 400,
         height: 670,
         show: false,
         autoHideMenuBar: true,
+        frame: false,
         ...(process.platform === 'linux' ? { icon } : {}),
         webPreferences: {
-            preload: join(__dirname, '../preload/index.js'),
+            preload: join(__dirname, '../preload/index.mjs'),
             sandbox: false
         }
     })
@@ -33,6 +44,34 @@ function createWindow(): void {
     } else {
         mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
     }
+
+    ipcMain.on('launch-random-game', (event, { romDirectory, emulatorPath }) => {
+        // getFiles(romDirectory)
+        launchRandomGame(romDirectory, emulatorPath)
+    })
+
+    ipcMain.handle('get-files', (event, { directory }) => {
+        return getFiles(directory)
+    })
+
+    const store = new Store<StoreType>({
+        defaults: {
+            configs: [],
+        }
+    })
+
+    ipcMain.on('save-configs', (event, { configs }) => {
+        return saveConfigs(store, configs)
+    })
+
+    ipcMain.handle('get-configs', (event) => {
+        return loadConfigs(store)
+    })
+
+    // IPC test
+    ipcMain.on('close', () => {
+        mainWindow.close()
+    })
 }
 
 // This method will be called when Electron has finished
@@ -48,9 +87,6 @@ app.whenReady().then(() => {
     app.on('browser-window-created', (_, window) => {
         optimizer.watchWindowShortcuts(window)
     })
-
-    // IPC test
-    ipcMain.on('ping', () => console.log('pong'))
 
     createWindow()
 

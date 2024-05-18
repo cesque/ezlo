@@ -5,6 +5,7 @@
     "main": "./out/main/index.js",
     "author": "example.com",
     "homepage": "https://electron-vite.org",
+    "type": "module",
     "scripts": {
         "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
         "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
@@ -21,7 +22,9 @@
     },
     "dependencies": {
         "@electron-toolkit/preload": "^3.0.0",
-        "@electron-toolkit/utils": "^3.0.0"
+        "@electron-toolkit/utils": "^3.0.0",
+        "classnames": "^2.5.1",
+        "electron-store": "^9.0.0"
     },
     "devDependencies": {
         "@electron-toolkit/eslint-config-ts": "^1.0.1",
@@ -38,6 +41,7 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "typescript": "^5.3.3",
-        "vite": "^5.0.12"
+        "vite": "^5.0.12",
+        "vite-plugin-svgr": "^4.2.0"
     }
 }

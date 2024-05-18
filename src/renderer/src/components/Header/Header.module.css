@@ -1,0 +1,40 @@
+.header {
+    -webkit-app-region: drag;
+    padding: var(--spacing-medium);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    background: var(--color-grey-100);
+    z-index: 1;
+    box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.2);
+}
+
+.title {
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    font-size: 1.2rem;
+    margin-left: var(--spacing-medium);
+}
+
+.closeButton {
+    appearance: none;
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border-radius: 100vw;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    transition: 0.1s background ease;
+    -webkit-app-region: no-drag;
+
+    &:hover {
+        background: var(--color-grey-200);
+    }
+}

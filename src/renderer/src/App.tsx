@@ -1,35 +1,58 @@
-import Versions from './components/Versions'
-import electronLogo from './assets/electron.svg'
+import styles from './App.module.css'
+
+import { GameSystemConfiguration } from 'src/types/GameSystemConfiguration';
+import { GameSystemConfigurationsProvider } from './GameSystemConfigurationsContext';
+import ConfigList from './components/ConfigList/ConfigList';
+
+import Header from './components/Header/Header'
+import useApi from './hooks/useApi'
+
+import { HTMLAttributes as H, useEffect, useState } from 'react'
+import LaunchSection from './components/LaunchSection/LaunchSection';
+
+declare module 'react' {
+    interface InputHTMLAttributes<T> extends H<T> {
+      // extends React's HTMLAttributes
+      directory?: string;
+      webkitdirectory?: string;
+    }
+}
 
 function App(): JSX.Element {
-    const ipcHandle = (): void => window.electron.ipcRenderer.send('ping')
+    const [loadedConfigs, setLoadedConfigs] = useState<GameSystemConfiguration[] | undefined>()
+    const { loadConfigs } = useApi()
 
-    return (
-        <>
-            <img alt="logo" className="logo" src={electronLogo} />
-            <div className="creator">Powered by electron-vite</div>
-            <div className="text">
-                Build an Electron app with <span className="react">React</span>
-                &nbsp;and <span className="ts">TypeScript</span>
-            </div>
-            <p className="tip">
-                Please try pressing <code>F12</code> to open the devTool
-            </p>
-            <div className="actions">
-                <div className="action">
-                    <a href="https://electron-vite.org/" target="_blank" rel="noreferrer">
-                        Documentation
-                    </a>
-                </div>
-                <div className="action">
-                    <a target="_blank" rel="noreferrer" onClick={ipcHandle}>
-                        Send IPC
-                    </a>
-                </div>
-            </div>
-            <Versions></Versions>
-        </>
-    )
+    // async function gf() {
+    //     const result = await getFiles(romDirectory)
+
+    //     console.log(result)
+    // }
+
+    useEffect(() => {
+        fetchConfigsFromSaved()
+    }, [])
+    
+    async function fetchConfigsFromSaved() {
+        const configs = await loadConfigs()
+
+        console.log('loaded configs:')
+        console.log(configs)
+
+        setLoadedConfigs(configs)
+    }
+
+    if (!loadedConfigs) {
+        return <div className={styles.loading}>loading...</div>
+    }
+
+    return <GameSystemConfigurationsProvider loadedConfigurations={loadedConfigs}>
+        <div className={styles.app}>
+            <Header />
+            <LaunchSection />
+
+            <ConfigList />
+        </div>
+    </GameSystemConfigurationsProvider>
 }
 
 export default App

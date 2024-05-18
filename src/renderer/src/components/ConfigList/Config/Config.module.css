@@ -1,0 +1,66 @@
+.item {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-medium);
+}
+
+.row {
+    display: flex;
+    gap: var(--spacing-medium);
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-medium);
+}
+
+.button {
+    appearance: none;
+    background: transparent;
+    outline: none;
+    border: none;
+    cursor: pointer;
+
+    background: var(--color-grey-200);
+    border-radius: 100vw;
+
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-small);
+    padding: var(--spacing-small) var(--spacing-medium);
+    opacity: 1;
+    transition: 0.1s opacity ease;
+
+    &:hover {
+        opacity: 0.8;
+    }
+
+    &[disabled] {
+        opacity: 0.3;
+        cursor: not-allowed;
+    }
+}
+
+.buttonIcon {
+    width: 18px;
+    height: 18px;
+}
+
+.buttonSave {
+    background: var(--color-blue-100);
+    color: var(--color-blue-300);
+    /* border: 1px solid rgb(75, 151, 222); */
+    /* color: rgb(75, 151, 222); */
+}
+
+.buttonDelete {
+    background: var(--color-purple-100);
+    color: var(--color-purple-300);
+    /* border: 1px solid rgb(151, 41, 100); */
+    /* color: rgb(151, 41, 100); */
+}

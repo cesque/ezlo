@@ -1,8 +1,16 @@
-import { contextBridge } from 'electron'
+import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
+import { Api } from '../types/Api'
+import { GameSystemConfiguration } from '../types/GameSystemConfiguration'
 
 // Custom APIs for renderer
-const api = {}
+const api: Api = {
+    getFiles: (directory: string) => ipcRenderer.invoke('get-files', { directory }),
+    launchRandomGame: (romDirectory: string, emulatorPath: string) => ipcRenderer.send('launch-random-game', { romDirectory, emulatorPath }),
+    close: () => ipcRenderer.send('close'),
+    loadConfigs: () => ipcRenderer.invoke('get-configs', {}),
+    saveConfigs: (configs: GameSystemConfiguration[]) => ipcRenderer.send('save-configs', { configs }),
+}
 
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise
