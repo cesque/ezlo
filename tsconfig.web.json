@@ -18,6 +18,9 @@
         },
         "types": [
             "vite-plugin-svgr/client"
-        ]
+        ],
+
+        "noUnusedLocals": false,
+        "noUnusedParameters": false
     }
 }

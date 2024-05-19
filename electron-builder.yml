@@ -1,5 +1,5 @@
 appId: com.electron.app
-productName: random-game-picker
+productName: Ezlo
 directories:
   buildResources: build
 files:
@@ -12,7 +12,9 @@ files:
 asarUnpack:
   - resources/**
 win:
-  executableName: random-game-picker
+  executableName: Ezlo
+  target: 
+    - portable
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
