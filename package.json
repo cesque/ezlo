@@ -1,6 +1,6 @@
 {
     "name": "ezlo",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "a desktop app for launching random video games in emulators",
     "main": "./out/main/index.js",
     "author": "cesque.com",
