@@ -3,8 +3,21 @@
     flex-direction: column;
     max-height: 100dvh;
     overflow-y: scroll;
+    padding-bottom: var(--spacing-xlarge);
 
     &::-webkit-scrollbar {
         display: none;
+    }
+
+    &::after {
+        content: '';
+        display: block;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 30px;
+        background: linear-gradient(to top, white, white 30%, transparent);
+        z-index: 1;
     }
 }
