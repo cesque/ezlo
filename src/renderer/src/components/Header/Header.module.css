@@ -17,6 +17,10 @@
     line-height: 1;
     font-size: 1.2rem;
     margin-left: var(--spacing-medium);
+
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-medium);
 }
 
 .closeButton {

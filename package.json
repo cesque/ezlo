@@ -24,6 +24,7 @@
         "@electron-toolkit/preload": "^3.0.0",
         "@electron-toolkit/utils": "^3.0.0",
         "classnames": "^2.5.1",
+        "coolshapes-react": "^1.0.1",
         "electron-store": "^9.0.0"
     },
     "devDependencies": {
