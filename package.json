@@ -27,6 +27,7 @@
         "electron-store": "^9.0.0"
     },
     "devDependencies": {
+        "@electron-forge/publisher-github": "^7.4.0",
         "@electron-toolkit/eslint-config-ts": "^1.0.1",
         "@electron-toolkit/tsconfig": "^1.0.1",
         "@types/node": "^18.19.9",
